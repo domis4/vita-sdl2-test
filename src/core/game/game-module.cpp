@@ -18,6 +18,8 @@ int Game::init() {
 
   if ((gRenderer = SDL_CreateRenderer( gWindow, -1, 0)) == NULL)
     return -1;
+
+  return 0;
 }
 
 void Game::render() {
