@@ -23,7 +23,8 @@ include_directories(
 )
 
 add_executable(${SHORT_NAME}
-  src/main.c
+  src/main.cpp
+  src/game-module.cpp
 )
 
 target_link_libraries(${SHORT_NAME}
