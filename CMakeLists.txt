@@ -8,26 +8,26 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
   endif()
 endif()
 
-set(SHORT_NAME redrectangle)
+set(SHORT_NAME domis4-sdl2-test)
 project(${SHORT_NAME})
 include("${VITASDK}/share/vita.cmake" REQUIRED)
 
-set(VITA_APP_NAME "Red Rectangle")
+set(VITA_APP_NAME "domis4-sdl2-test")
 set(VITA_TITLEID  "VSDK00013")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-include_directories(
-  ../common
+FILE( GLOB_RECURSE PROJ_SOURCES src/*cpp)
+
+add_executable(
+  ${SHORT_NAME}
+  ${PROJ_SOURCES} 
 )
 
-add_executable(${SHORT_NAME}
-  src/main.cpp
-  src/core/game/game-module.cpp
-)
-
-target_link_libraries(${SHORT_NAME}
+target_link_libraries(
+  ${SHORT_NAME}
+  SDL2_image
   SDL2
   vita2d
   SceDisplay_stub

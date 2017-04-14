@@ -1,5 +1,4 @@
 #include <psp2/kernel/processmgr.h>
-#include <SDL2/SDL.h>
 #include "core/game/game-module.h"
 
 int main(int argc, char *argv[]) {
@@ -12,6 +11,5 @@ int main(int argc, char *argv[]) {
   while(1) {
      game.render();
   }
-
   return 0;
 }

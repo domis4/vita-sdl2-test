@@ -9,21 +9,29 @@ int Game::init() {
     getWidth()  / 2, 
     getHeight() / 2 
   };
-
-  if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-    return -1;
-
-  if ((gWindow = SDL_CreateWindow( "RedRectangle", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 960, 544, SDL_WINDOW_SHOWN)) == NULL)
-    return -1;
-
-  if ((gRenderer = SDL_CreateRenderer( gWindow, -1, 0)) == NULL)
-    return -1;
-
+  texture = loadTexture("ux0:domis4/assets/test.png");
+  
+  SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
+  gWindow = SDL_CreateWindow("SDLTest", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 960, 544, SDL_WINDOW_SHOWN);
+  gRenderer = SDL_CreateRenderer(gWindow, -1, 0);
   return 0;
 }
 
 void Game::render() {
-  SDL_SetRenderDrawColor( gRenderer, 255,0,0,255);
-  SDL_RenderFillRect( gRenderer, &rectangle );
-  SDL_RenderPresent( gRenderer ); 
+  SDL_RenderClear(gRenderer);
+  SDL_RenderCopy(gRenderer, texture, NULL, NULL);
+  SDL_RenderPresent(gRenderer);
+}
+
+SDL_Texture* Game::loadTexture(std::string path) {
+  using namespace std;
+  SDL_Texture* image = IMG_LoadTexture(gRenderer, path.c_str());
+  
+  if(!image) {
+    freopen( "ux0:domis4/log.txt", "w", stdout );
+    cout << "> Game::loadTexture tried loading file " + std::string(path) << endl;
+    cout << "IMG_Load: " + std::string(IMG_GetError()) << endl;
+  }
+
+  return texture;
 }
